@@ -16,8 +16,8 @@
         <router-link to="/" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">Home</router-link>
         <router-link to="/about" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">About</router-link>
         <template v-if="authenticated">
-          <a class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">{{ user.name }}</a>
-          <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" @click.prevent="logOut">Logout</a>
+          <button type="button" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">{{ user.name }}</button>
+          <button type="button" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4" @click.prevent="logOut">Logout</button>
         </template>
         <template v-else>
           <router-link to="/login" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">Login</router-link>
