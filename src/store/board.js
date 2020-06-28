@@ -89,9 +89,15 @@ export default {
 
   actions: {
     loadBoards({commit}) {
-      axios.get(API_URL + '/boards').then(response => {
-        commit('LOAD_BOARDS', response.data)
+      return new Promise((resolve, reject) => {
+        axios.get(API_URL + '/boards').then(response => {
+          commit('LOAD_BOARDS', response.data)
+          resolve(response)
+        }).catch(err => {
+          reject(err)
+        })
       })
+      
     },
   
     createNewBoard({commit}, name, description) {
@@ -103,10 +109,14 @@ export default {
     },
   
     getBoard({commit}, id) {
-      axios.get(API_URL + '/boards/' + id).then(response => {
-        commit('GET_BOARD', response.data)
-        commit('GET_CARD_LIST', response.data)
+      return new Promise((resolve, reject) => {
+        axios.get(API_URL + '/boards/' + id).then(response => {
+          commit('GET_BOARD', response.data)
+          commit('GET_CARD_LIST', response.data)
+          resolve(response)
+        }).catch(err => reject(err))
       })
+      
     },
   
     createNewCardList({commit}, data) {

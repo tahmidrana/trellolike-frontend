@@ -3,8 +3,18 @@
     <div class="flex item-center">
       <h3 class="text-xl font-bold" v-if="board">{{ board.name }}</h3>
     </div>
+
+    <div class="flex flex-wrap" v-if="loading">
+      <div class="max-w-sm h-24 rounded bg-white mr-4 w-300px mb-4" v-for="x in 5" :key="x">
+        <div class="px-6 py-4">
+          <div class="w-4/6 bg-gray-200 block h-4 mb-4"></div>
+          <div class="w-full bg-gray-200 block h-2 mb-2"></div>
+          <div class="w-full bg-gray-200 block h-2 mb-2"></div>
+        </div>
+      </div>
+    </div>
     
-    <div class="my-2 card-list flex flex-no-wrap overflow-x-auto" v-if="card_list">
+    <div class="my-2 card-list flex flex-no-wrap overflow-x-auto" v-else >
       <CardListItem v-for="list_item in card_list" :key="list_item.id" :list_item="list_item" />
 
       <button v-if="!showBoardCreateForm" @click="showBoardCreateForm=true" class="w-250px h-full rounded bg-teal-500 hover:bg-teal-400 text-white flex-none text-center">
@@ -21,9 +31,6 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      No Data
-    </div>
     
   </div>
 </template>
@@ -39,6 +46,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       showBoardCreateForm: false,
       list_title: ''
     }
@@ -61,7 +69,7 @@ export default {
     }
   },
   created() {
-    this.getBoard(this.$route.params.id)
+    this.getBoard(this.$route.params.id).then(() => this.loading = false)
   }
 }
 </script>
